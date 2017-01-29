@@ -17,6 +17,7 @@ public class CameraControll : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
 		#if UNITY_EDITOR
 		if (Input.GetKey (KeyCode.LeftArrow)) {
 			this.transform.Rotate (Vector3.up * -Time.deltaTime * speed, Space.World);
@@ -33,7 +34,8 @@ public class CameraControll : MonoBehaviour {
 
 		#elif UNITY_IOS || UNITY_ANDROID
 		_attitude = Input.gyro.attitude;
-		this.transform.rotation = Quaternion.AngleAxis(-90f, Vector3.right) * _attitude;
+		_attitude.x *= -1; _attitude.y *= -1;
+		this.transform.rotation = Quaternion.AngleAxis(90f, Vector3.right) * _attitude;
 		#endif
 	}
 }
